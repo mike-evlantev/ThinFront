@@ -1,0 +1,1 @@
+C:\dev\ThinFront\ThinFront\ThinFront.Core\obj\Debug\ThinFront.Core.csprojResolveAssemblyReference.cache
