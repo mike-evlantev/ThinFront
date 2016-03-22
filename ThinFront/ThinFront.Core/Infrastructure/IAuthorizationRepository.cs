@@ -15,9 +15,8 @@ namespace ThinFront.Core.Infrastructure
         // Specifies the details needed to find and register users
         // This method takes a username and password and finds the corresponding User(Customer, Reseller, or Supplier)
         // and returns the corresponding User (Customer, Reseller, or Supplier)
-        Task<Customer> FindCustomer(string username, string password);
-        Task<Supplier> FindSupplier(string username, string password);
-        Task<Reseller> FindReseller(string username, string password);
+
+        Task<ThinFrontUser> FindUser(string username, string password);
         
         // takes in a registration model - input form that adds it to the database
         Task<IdentityResult> RegisterReseller(RegistrationsModel.Reseller model);

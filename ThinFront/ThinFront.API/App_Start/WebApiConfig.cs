@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using ThinFront.Core.Domain;
+using ThinFront.Core.Models;
 
 namespace ThinFront.API
 {
@@ -29,19 +31,19 @@ namespace ThinFront.API
         public static void CreateMaps()
         {
             Mapper.CreateMap<Address, AddressesModel>();
-            Mapper.CreateMap<AddressType, AddressTypesMOdel>();
-            Mapper.CreateMap<Customer, CustomersModel>();
+            Mapper.CreateMap<AddressType, AddressTypesModel>();
+            //Mapper.CreateMap<Customer, CustomersModel>();
             Mapper.CreateMap<Inventory, InventoriesModel>();
             Mapper.CreateMap<Order, OrdersModel>();
             Mapper.CreateMap<OrderItem, OrderItemsModel>();
             Mapper.CreateMap<Product, ProductsModel>();
             Mapper.CreateMap<ProductCategory, ProductCategoriesModel>();
-            Mapper.CreateMap<ProductSubcategory, ProducySubcategoriesModel>();
+            Mapper.CreateMap<ProductSubcategory, ProductSubcategoriesModel>();
             Mapper.CreateMap<Promotion, PromotionsModel>();
             Mapper.CreateMap<PromotionalProduct, PromotionalProductsModel>();
-            Mapper.CreateMap<Reseller, ResellersModel>();
+            //Mapper.CreateMap<Reseller, ResellersModel>();
             Mapper.CreateMap<ResellerProductCategory, ResellerProductCategoriesModel>();
-            Mapper.CreateMap<Supplier, SuppliersModel>();
+            //Mapper.CreateMap<Supplier, SuppliersModel>();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ThinFront.Data.Infrastructure
         // These will be SQL tables
         public IDbSet<Address> Addresses { get; set; }
         public IDbSet<AddressType> AddressTypes { get; set; }
-        public IDbSet<Customer> Customers { get; set; }
+        //public IDbSet<Customer> Customers { get; set; }
         public IDbSet<Inventory> Inventories { get; set; }
         public IDbSet<Order> Orders { get; set; }
         public IDbSet<OrderItem> OrderItems { get; set; }
@@ -30,10 +30,10 @@ namespace ThinFront.Data.Infrastructure
         public IDbSet<ProductSubcategory> ProductSubcategories { get; set; }
         public IDbSet<Promotion> Promotions { get; set; }
         public IDbSet<PromotionalProduct> PromotionalProducts { get; set; }
-        public IDbSet<Reseller> Resellers { get; set; }
+        //public IDbSet<Reseller> Resellers { get; set; }
         public IDbSet<ResellerProductCategory> ResellerProductCategories { get; set; }
         public IDbSet<Role> Roles { get; set; }
-        public IDbSet<Supplier> Suppliers { get; set; }
+        //public IDbSet<Supplier> Suppliers { get; set; }
         public IDbSet<ThinFrontUser> Users { get; set; }
 
         // Explicitly model relationships
@@ -46,11 +46,15 @@ namespace ThinFront.Data.Infrastructure
             // only entity relationships on the 1 side of 1-to-many are modelled here
             // **if modelling relationships on the many side of 1-to-many then use .HasRequired and .WithMany**
 
+            // START OF COMMENT: Conflict between ".HasKey" and ".WithOptional". Commented out below.
+
             // Address is on the many side of all of its relationships. It will not be modelled
             // model compound key of entity Address
-            modelBuilder.Entity<Address>()
+            // modelBuilder.Entity<Address>()
                         // the compound key for address is a combo of the 4 keys below
-                        .HasKey(a => new { a.AddressTypeId, a.CustomerId, a.ResellerId, a.SupplierId });
+                        //.HasKey(a => new { a.AddressTypeId, a.CustomerId, a.ResellerId, a.SupplierId });
+            
+            // END OF COMMENT
 
             // model for AddressType
             // on the 1 side of 1-to-many with Address
@@ -66,16 +70,25 @@ namespace ThinFront.Data.Infrastructure
             // model of Customer
             // on the 1 side of 1-to-many with Address
             // on the 1 side of 1-to-many with Orders
-            modelBuilder.Entity<Customer>()
+            // on the principal side of the 1-to-1 with ThinFrontUser
+            modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(c => c.Addresses)
-                        .WithRequired(a => a.Customer)
-                        .HasForeignKey(a => a.CustomerId);
+                        .WithRequired(a => a.User)
+                        .HasForeignKey(a => a.UserId)
+                        .WillCascadeOnDelete(false);
 
 
-            modelBuilder.Entity<Customer>()
+            modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(c => c.Orders)
                         .WithRequired(o => o.Customer)
-                        .HasForeignKey(o => o.CustomerId);
+                        .HasForeignKey(o => o.CustomerId)
+                        .WillCascadeOnDelete(false);
+
+
+            // No longer needed, this used to map a Customer to it's User record
+            //modelBuilder.Entity<Customer>()
+            //            .HasOptional(c => c.User)
+            //            .WithRequired(u => u.Customer);
 
             // model of Inventory
             // on the 1 side of 1-to-many with ProductCategory
@@ -107,11 +120,6 @@ namespace ThinFront.Data.Infrastructure
                         .HasForeignKey(oi => oi.ProductId);
 
             modelBuilder.Entity<Product>()
-                        .HasMany(p => p.ProductSubcategories)
-                        .WithRequired(ps => ps.Product)
-                        .HasForeignKey(ps => ps.ProductId);
-
-            modelBuilder.Entity<Product>()
                         .HasMany(p => p.PromotionalProducts)
                         .WithRequired(pp => pp.Product)
                         .HasForeignKey(pp => pp.ProductId);
@@ -121,19 +129,21 @@ namespace ThinFront.Data.Infrastructure
             // on the 1 side of 1-to-many with ProductSubcategory
             modelBuilder.Entity<ProductCategory>()
                         .HasMany(pc => pc.ResellerProductCategories)
-                        .WithRequired(rpc = rpc.ProductCategory)
-                        .HasForeignKey(rpc = rpc.ProductCategoryId);
+                        .WithRequired(rpc => rpc.ProductCategory)
+                        .HasForeignKey(rpc => rpc.ProductCategoryId);
 
             modelBuilder.Entity<ProductCategory>()
                         .HasMany(pc => pc.ProductSubcategories)
-                        .WithRequired(ps = ps.ProductCategory)
-                        .HasForeignKey(ps = ps.ProductCategoryId);
+                        .WithRequired(ps => ps.ProductCategory)
+                        .HasForeignKey(ps => ps.ProductCategoryId);
 
             // ProductSubcategory is on the many side of both of its 1-to-many relationships.
             // model compound key of entity ProductSubcategory
             modelBuilder.Entity<ProductSubcategory>()
-                        // the compound key for ProductSubcategory is a combo of the 2 keys below
-                        .HasKey(ps => new { ps.ProductId, ps.ProductCategory });
+                        .HasMany(psc => psc.Products)
+                        .WithRequired(p => p.ProductSubCategory)
+                        .HasForeignKey(p => p.ProductSubCategoryId);
+
 
 
             // model of Promotion
@@ -141,7 +151,8 @@ namespace ThinFront.Data.Infrastructure
             modelBuilder.Entity<Promotion>()
                         .HasMany(p => p.PromotionalProducts)
                         .WithRequired(pp => pp.Promotion)
-                        .HasForeignKey(pp => pp.PromotionId);
+                        .HasForeignKey(pp => pp.PromotionId)
+                        .WillCascadeOnDelete(false);
 
             // PromotionalProduct is on the many side of both of its 1-to-many relationships.
             // model compound key of entity PromotionalProduct
@@ -153,32 +164,43 @@ namespace ThinFront.Data.Infrastructure
             // on the 1 side of 1-to-many with Address
             // on the 1 side of 1-to-many with Customer
             // on the 1 side of 1-to-many with ResellerProductCategory
-            modelBuilder.Entity<Reseller>()
-                        .HasMany(r => r.Addresses)
-                        .WithRequired(a => a.Reseller)
-                        .HasForeignKey(a => a.ResellerId);
+            // on the principal side of 1-to-1 with ThinFrontUser
+            //modelBuilder.Entity<Reseller>()
+            //            .HasMany(r => r.Addresses)
+            //            .WithOptional(a => a.Reseller)
+            //            .HasForeignKey(a => a.ResellerId);
 
-            modelBuilder.Entity<Reseller>()
+            modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(r => r.Customers)
-                        .WithRequired(c => c.Reseller)
+                        .WithOptional(c => c.Reseller)
                         .HasForeignKey(c => c.ResellerId);
+                        
 
-            modelBuilder.Entity<Reseller>()
+            modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(r => r.ResellerProductCategories)
                         .WithRequired(rpc => rpc.Reseller)
-                        .HasForeignKey(rpc => rpc.ResellerId);
+                        .HasForeignKey(rpc => rpc.ResellerId)
+                        .WillCascadeOnDelete(false);
+                        // ResellerProductCategories will be deleted through
+                        // ALLOWED: ThinFrontUser(Supplier) -> Inventory -> Product Category -> ResellerProductCategory
+                        // DENIED : ThinFrontUser(Supplier) -> ResellerProductCategory
+
+            // No longer needed, this used to map a Reseller to it's User record
+            //modelBuilder.Entity<Reseller>()
+            //            .HasOptional(r => r.User)
+            //            .WithRequired(u => u.Reseller);
 
             // ResellerProductCategory is on the many side of both of its 1-to-many relationships.
             // model compound key of entity ResellerProductCategory
             modelBuilder.Entity<ResellerProductCategory>()
                         // the compound key for ResellerProductCategory is a combo of the 2 keys below
-                        .HasKey(pp => new { rpc.ProductCategoryId, rpc.Reseller });
+                        .HasKey(rpc => new { rpc.ProductCategoryId, rpc.ResellerId });
 
             // model of Role
             // on the 1 side of 1-to-many with ThinFrontUser
             modelBuilder.Entity<Role>()
                         .HasMany(r => r.Users)
-                        .WithRequired(u => u.Role)
+                        .WithOptional(u => u.Role)
                         .HasForeignKey(u => u.RoleId);
 
             // model of Supplier
@@ -186,31 +208,25 @@ namespace ThinFront.Data.Infrastructure
             // on the 1 side of 1-to-many with Inventory
             // on the 1 side of 1-to-many with Promotion
             // on the principal side of 1-to-1 with ThinFrontUser
-            modelBuilder.Entity<Supplier>()
-                        .HasMany(s => s.Addresses)
-                        .WithRequired(a => a.Supplier)
-                        .HasForeignKey(a => a.SupplierId);
+            //modelBuilder.Entity<Supplier>()
+            //            .HasMany(s => s.Addresses)
+            //            .WithOptional(a => a.Supplier)
+            //            .HasForeignKey(a => a.SupplierId);
 
-            modelBuilder.Entity<Supplier>()
+            modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(s => s.Inventories)
                         .WithRequired(i => i.Supplier)
                         .HasForeignKey(i => i.SupplierId);
 
-            modelBuilder.Entity<Supplier>()
+            modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(s => s.Promotions)
                         .WithRequired(p => p.Supplier)
                         .HasForeignKey(p => p.SupplierId);
 
-            modelBuilder.Entity<Supplier>()
-                        .HasRequired(s => s.User)
-                        .WithOptional(u => u.Supplier);
-            // model of ThinFrontUser
-            // on the dependant side of 1-to-1 with Customer
-            // on the dependant side of 1-to-1 with Reseller
-            // on the dependant side of 1-to-1 with Supplier
-            modelBuilder.Entity<ThinFrontUser>()
-                        .HasRequired(u => u.Customer)
-                        .WithOptional(c => c.User);
+            // No longer needed, this used to map a Supplier to it's User record
+            //modelBuilder.Entity<Supplier>()
+            //            .HasOptional(s => s.User)
+            //            .WithRequired(u => u.Supplier);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ThinFront.Core.Models
 {
-    class ResellerProductCategoriesModel
+    public class ResellerProductCategoriesModel
     {
         // compound key = PK's of ResellerId and ProductCategoryId
         public int ResellerId { get; set; }

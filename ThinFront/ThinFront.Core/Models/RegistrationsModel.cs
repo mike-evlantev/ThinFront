@@ -18,7 +18,13 @@ namespace ThinFront.Core.Models
             [Required]
             public string LastName { get; set; }
 
+            [Required]
+            public string Phone { get; set; }
+
+            [Required]
             public AddressesModel BillingAddress {get;set;}
+
+            [Required]
             public AddressesModel ShippingAddress { get; set; }
 
             [Required]
@@ -39,21 +45,23 @@ namespace ThinFront.Core.Models
         public class Reseller
         {
             [Required]
-            public string ResellerName { get; set; }
+            public string CompanyName { get; set; }
 
             [Required]
-            public string ContactFirstName { get; set; }
+            public string FirstName { get; set; }
 
             [Required]
-            public string ContactLastName { get; set; }
+            public string LastName { get; set; }
 
+            [Required]
             public AddressesModel BillingAddress { get; set; }
+
+            [Required]
             public AddressesModel ShippingAddress { get; set; }
 
             [Required]
             public string Phone { get; set; }
 
-            [Required]
             public string Fax { get; set; }
 
             [Required]
@@ -74,21 +82,23 @@ namespace ThinFront.Core.Models
         public class Supplier
         {
             [Required]
-            public string SupplierName { get; set; }
+            public string CompanyName { get; set; }
 
             [Required]
-            public string ContactFirstName { get; set; }
+            public string FirstName { get; set; }
 
             [Required]
-            public string ContactLastName { get; set; }
+            public string LastName { get; set; }
 
+            [Required]
             public AddressesModel BillingAddress { get; set; }
+
+            [Required]
             public AddressesModel ShippingAddress { get; set; }
 
             [Required]
             public string Phone { get; set; }
 
-            [Required]
             public string Fax { get; set; }
 
             [Required]

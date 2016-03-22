@@ -1,1 +1,12 @@
 C:\dev\ThinFront\ThinFront\ThinFront.Core\obj\Debug\ThinFront.Core.csprojResolveAssemblyReference.cache
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\ThinFront.Core.dll
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\ThinFront.Core.pdb
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\dev\ThinFront\ThinFront\ThinFront.Core\obj\Debug\ThinFront.Core.dll
+C:\dev\ThinFront\ThinFront\ThinFront.Core\obj\Debug\ThinFront.Core.pdb
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\ModernHttpClient.dll
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\Newtonsoft.Json.dll
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\Stripe.net.dll
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\Newtonsoft.Json.xml
+C:\dev\ThinFront\ThinFront\ThinFront.Core\bin\Debug\Stripe.net.pdb

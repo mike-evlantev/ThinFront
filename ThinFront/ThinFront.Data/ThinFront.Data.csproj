@@ -60,6 +60,11 @@
     <Compile Include="Infrastructure\ThinFrontDataContext.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Infrastructure\UserStore.cs" />
+    <Compile Include="Migrations\201603182308175_InitialMigration.cs" />
+    <Compile Include="Migrations\201603182308175_InitialMigration.Designer.cs">
+      <DependentUpon>201603182308175_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AddressRepository.cs" />
     <Compile Include="Repository\AddressTypeRepository.cs" />
@@ -87,6 +92,11 @@
       <Project>{a76ebf7c-ca79-4d10-b241-7e44b3e65493}</Project>
       <Name>ThinFront.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603182308175_InitialMigration.resx">
+      <DependentUpon>201603182308175_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

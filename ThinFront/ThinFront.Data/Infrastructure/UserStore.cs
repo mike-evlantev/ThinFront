@@ -10,13 +10,15 @@ using ThinFront.Core.Infrastructure;
 
 namespace ThinFront.Data.Infrastructure
 {
-    // 
+    // UserManager - Front End authentication. taking plain text and hashing username/password. DELEGATES TO USERSTORE
+    // UserStore handles creating, updating, deleting and reading usernames/passwords from the DB
     public class UserStore : Disposable,
                              IUserStore<ThinFrontUser, int>,
                              IUserPasswordStore<ThinFrontUser, int>,
                              IUserSecurityStampStore<ThinFrontUser, int>,
                              IUserRoleStore<ThinFrontUser, int>
     {
+        // Talks to EF which talks to the DB
         private readonly IDatabaseFactory _databaseFactory;
 
         private ThinFrontDataContext _db;
@@ -28,12 +30,14 @@ namespace ThinFront.Data.Infrastructure
             }
         }
 
+        // CTOR - user store depends on a DB Factory in order to be instantiated 
         public UserStore(IDatabaseFactory databaseFactory)
         {
             _databaseFactory = databaseFactory;
         }
 
         #region IUserStore
+        // Creates a user
         public Task CreateAsync(ThinFrontUser user)
         {
             if (user == null)
@@ -44,7 +48,7 @@ namespace ThinFront.Data.Infrastructure
                 Db.SaveChanges();
             });
         }
-
+        // Updates a user
         public Task UpdateAsync(ThinFrontUser user)
         {
             if (user == null)
@@ -58,7 +62,11 @@ namespace ThinFront.Data.Infrastructure
                 Db.SaveChanges();
             });
         }
-
+        /// <summary>
+        /// Deletes a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public Task DeleteAsync(ThinFrontUser user)
         {
             if (user == null)
@@ -70,18 +78,27 @@ namespace ThinFront.Data.Infrastructure
                 Db.SaveChanges();
             });
         }
-
+        /// <summary>
+        /// Reads user by id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public Task<ThinFrontUser> FindByIdAsync(int userId)
         {
             return Task.Factory.StartNew(() => Db.Users.Find(userId));
         }
-
+        /// <summary>
+        /// reads user by name
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public Task<ThinFrontUser> FindByNameAsync(string userName)
         {
             return Task.Factory.StartNew(() => Db.Users.FirstOrDefault(u => u.UserName == userName));
         }
         #endregion
 
+        // Saves and gets passwords after hashing/checks if the user has a password
         #region IUserPasswordStore
         public Task SetPasswordHashAsync(ThinFrontUser user, string passwordHash)
         {
@@ -107,6 +124,7 @@ namespace ThinFront.Data.Infrastructure
         }
         #endregion
 
+        // Sets a security stamp and gets a security stamp from the DB
         #region IUserSecurityStampStore
         public Task SetSecurityStampAsync(ThinFrontUser user, string stamp)
         {
@@ -126,6 +144,7 @@ namespace ThinFront.Data.Infrastructure
             return Task.FromResult(user.SecurityStamp);
         }
         #endregion
+
 
         #region IUserRoleStore
 

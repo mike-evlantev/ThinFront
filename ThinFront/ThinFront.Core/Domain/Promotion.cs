@@ -17,6 +17,7 @@ namespace ThinFront.Core.Domain
         // on the many side of 1-to-many
         public virtual ICollection<PromotionalProduct> PromotionalProducts { get; set; }
         // on the 1 side of 1-to-many
-        public virtual Supplier Supplier { get; set; }
+        public virtual ThinFrontUser Supplier { get; set; }
+        //public virtual Supplier Supplier { get; set; }
     }
 }

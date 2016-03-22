@@ -10,6 +10,7 @@ namespace ThinFront.Core.Models
     public class AddressesModel
     {
         // properties			
+        public int AddressId { get; set; }
         public int AddressTypeId { get; set; }
         public int? CustomerId { get; set; }
         public int? ResellerId { get; set; }
@@ -28,5 +29,8 @@ namespace ThinFront.Core.Models
         public string State { get; set; }
         [Required]
         public string ZipCode { get; set; }
+
+        public AddressTypesModel AddressType { get; set; }
+        public ThinFrontUsersModel User { get; set; }
     }
 }

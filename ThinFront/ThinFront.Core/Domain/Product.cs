@@ -9,6 +9,7 @@ namespace ThinFront.Core.Domain
     public class Product
     {
         public int ProductId { get; set; }
+        public int ProductSubCategoryId { get; set; }
         public string ImageUrl { get; set; }
         public string Brand { get; set; }
         public string Title { get; set; }
@@ -18,8 +19,8 @@ namespace ThinFront.Core.Domain
         public decimal Price { get; set; }
 
         // on the 1 side of 1-to-many
+        public virtual ProductSubcategory ProductSubCategory { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
-        public virtual ICollection<ProductSubcategory> ProductSubcategories { get; set; }
         public virtual ICollection<PromotionalProduct> PromotionalProducts { get; set; }
     }
 }

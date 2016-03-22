@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ThinFront.Core.Models
 {
-    class PromotionsModel
+    public class PromotionsModel
     {
         public int PromotionId { get; set; }
         public int SupplierId { get; set; }

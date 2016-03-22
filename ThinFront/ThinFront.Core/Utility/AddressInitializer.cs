@@ -14,7 +14,7 @@ namespace ThinFront.Core.Utility
         public static Address Initialize(ICollection<Address> addresses, AddressTypes addressTypeId) 
         {
             // stores an address with assigned Address Type
-            Address address = addresses.FirstOrDefault(a => a.AddressTypeId == (int)addressTypeId);
+            Address address = addresses.FirstOrDefault(a => a.AddressTypeEnum == addressTypeId);
 
             // if the address does not exist...
             if (address == null)
@@ -23,8 +23,9 @@ namespace ThinFront.Core.Utility
                 address = new Address
                 {
                     // ...with an assigned Address Type
-                    AddressTypeId = (int)addressTypeId
+                    AddressTypeEnum = addressTypeId
                 };
+                // .. adds the created address to DB
                 addresses.Add(address);
             }
             // ...otherwise returns an address

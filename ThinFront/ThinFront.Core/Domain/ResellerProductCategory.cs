@@ -13,7 +13,8 @@ namespace ThinFront.Core.Domain
         public int ProductCategoryId { get; set; }
 
         // on the many side of 1-to-many
-        public virtual Reseller Reseller { get; set; }
+        public virtual ThinFrontUser Reseller { get; set; }
+        //public virtual Reseller Reseller { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
     }
 }

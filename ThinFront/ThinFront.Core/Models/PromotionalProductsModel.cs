@@ -7,7 +7,7 @@ using ThinFront.Core.Domain;
 
 namespace ThinFront.Core.Models
 {
-    class PromotionalProductsModel
+    public class PromotionalProductsModel
     {
         // needs compound key
         public int ProductId { get; set; }

@@ -1,13 +1,18 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using SimpleInjector;
+using SimpleInjector.Extensions.ExecutionContextScoping;
+using SimpleInjector.Integration.WebApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using ThinFront.API.Infrastructure;
+using ThinFront.Core.Domain;
 using ThinFront.Core.Infrastructure;
 using ThinFront.Core.Repository;
 using ThinFront.Data.Infrastructure;
@@ -25,7 +30,7 @@ namespace ThinFront.API
 
             HttpConfiguration config = new HttpConfiguration
             {
-                DependecyResolver = new SimpleInjectorWebApiDependencyResolver(container)
+                DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container)
             };
             WebApiConfig.Register(config);
 
@@ -38,19 +43,22 @@ namespace ThinFront.API
         public void ConfigureOAuth(IAppBuilder app, Container container)
         {
             Func<IAuthorizationRepository> authRepositoryFactory = container.GetInstance<IAuthorizationRepository>;
-
+            // Configure Authentication
             var authenticationOptions = new OAuthBearerAuthenticationOptions();
-
+            // Configure Authorziation
             var authorizationOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
+                // Telling ASP.NET the route (address for ticket booth)
                 TokenEndpointPath = new PathString("/api/token"),
+                // Token is only good for 1 day
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                // 
                 Provider = new ThinFrontAuthorizationServerProvider(authRepositoryFactory)
             };
 
             app.UseOAuthAuthorizationServer(authorizationOptions);
-            app.UseOAUthBearerAuthentication(authenticationOptions);
+            app.UseOAuthBearerAuthentication(authenticationOptions);
         }
 
         public Container ConfigureSimpleInjector(IAppBuilder app)
@@ -60,14 +68,17 @@ namespace ThinFront.API
             container.Options.DefaultScopedLifestyle = new ExecutionContextScopeLifestyle();
 
             // Infrastructure
+            container.Register<IAuthorizationRepository, AuthorizationRepository>();
             container.Register<IDatabaseFactory, DatabaseFactory>(Lifestyle.Scoped);
             container.Register<IUnitOfWork, UnitOfWork>();
             container.Register<IUserStore<ThinFrontUser, int>, UserStore>(Lifestyle.Scoped);
 
+            // Simple Injector takes interfaces and maps them to classes
+            // in this case SI takes interface repos and maps them to EF repos
             // Repositories
             container.Register<IAddressRepository, AddressRepository>();
             container.Register<IAddressTypeRepository, AddressTypeRepository>();
-            container.Register<ICustomerRepository, CustomerRepository>();
+            //container.Register<ICustomerRepository, CustomerRepository>();
             container.Register<IInventoryRepository, InventoryRepository>();
             container.Register<IOrderRepository, OrderRepository>();
             container.Register<IOrderItemRepository, OrderItemRepository>();
@@ -76,11 +87,14 @@ namespace ThinFront.API
             container.Register<IProductSubcategoryRepository, ProductSubcategoryRepository>();
             container.Register<IPromotionRepository, PromotionRepository>();
             container.Register<IPromotionalProductRepository, PromotionalProductRepository>();
-            container.Register<IResellerRepository, ResellerRepository>();
+            //container.Register<IResellerRepository, ResellerRepository>();
             container.Register<IResellerProductCategoryRepository, ResellerProductCategoryRepository>();
             container.Register<IRoleRepository, RoleRepository>();
-            container.Register<ISupplierRepository, SupplierRepository>();
+            //container.Register<ISupplierRepository, SupplierRepository>();
             container.Register<IThinFrontUserRepository, ThinFrontUserRepository>();
+
+            // Services
+            // 3rd party API implementation should be decoupled (needs a service and separate class)
 
             app.Use(async (context, next) =>
             {

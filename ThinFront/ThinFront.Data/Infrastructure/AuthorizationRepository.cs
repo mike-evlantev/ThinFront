@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace ThinFront.Data.Infrastructure
         private ThinFrontDataContext db;
         protected ThinFrontDataContext Db => db ?? (db = _databaseFactory.GetDataContext());
 
-        public AuthorizationRepository(IDatabaseFactory databaseFactory, IUserStore<ThinFrontUser> userStore)
+        public AuthorizationRepository(IDatabaseFactory databaseFactory, IUserStore<ThinFrontUser, int> userStore)
         {
             _userStore = userStore;
             _databaseFactory = databaseFactory;
@@ -29,82 +30,80 @@ namespace ThinFront.Data.Infrastructure
         // Assign Customer Role
         public async Task<IdentityResult> RegisterCustomer(RegistrationsModel.Customer model)
         {
-            var customer = new Customer
+            var customer = new ThinFrontUser
             {
                 Email = model.EmailAddress,
+                Phone = model.Phone,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                
-            };
-
-            // Create a user
-            var thinFrontUser = new ThinFrontUser
-            {
                 UserName = model.EmailAddress,
-                Email = model.EmailAddress,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                // Whats the proper way to model the address per address model??
-                
+                Addresses = new Collection<Address>
+                {
+                    new Address(model.BillingAddress, AddressTypes.Billing),
+                    new Address(model.ShippingAddress, AddressTypes.Shipping)
+                }
             };
 
-            thinFrontUser.Addresses
-            
-                // Save a user
-            var result = await _userManager.CreateAsync(thinFrontUser, model.Password);
-            await _userManager.AddToRoleAsync(thinFrontUser.Id, "Customer");
+            //// Save a customer
+            //Db.Users.Add(customer);
+            //Db.SaveChanges();
+
+            // Save a user
+            var result = await _userManager.CreateAsync(customer, model.Password);
+
+            await _userManager.AddToRoleAsync(customer.Id, "Customer");
             return result;
         }
         // Assign a Reseller role
         public async Task<IdentityResult> RegisterReseller(RegistrationsModel.Reseller model)
         {
-            // Create a user
-            var thinFrontUser = new ThinFrontUser
+            var reseller = new ThinFrontUser
             {
-                // ???What should this reflect???
+                CompanyName = model.CompanyName,
+                Email = model.EmailAddress,
+                Phone = model.Phone,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.EmailAddress,
-                Email = model.EmailAddress
+                Addresses = new Collection<Address>
+                {
+                    new Address(model.BillingAddress, AddressTypes.Billing),
+                    new Address(model.ShippingAddress, AddressTypes.Shipping)
+                }
             };
 
             // Save a user
-            var result = await _userManager.CreateAsync(thinFrontUser, model.Password);
-            await _userManager.AddToRoleAsync(thinFrontUser.Id, "Reseller");
+            var result = await _userManager.CreateAsync(reseller, model.Password);
+            await _userManager.AddToRoleAsync(reseller.Id, "Reseller");
             return result;
         }
         // Assign a Supplier role
         public async Task<IdentityResult> RegisterSupplier(RegistrationsModel.Supplier model)
         {
-            // Create a user
-            var thinFrontUser = new ThinFrontUser
+            var supplier = new ThinFrontUser
             {
-                // ???What should this reflect???
+                CompanyName = model.CompanyName,
+                Email = model.EmailAddress,
+                Phone = model.Phone,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.EmailAddress,
-                Email = model.EmailAddress
+                Addresses = new Collection<Address>
+                {
+                    new Address(model.BillingAddress, AddressTypes.Billing),
+                    new Address(model.ShippingAddress, AddressTypes.Shipping)
+                }
             };
 
             // Save a user
-            var result = await _userManager.CreateAsync(thinFrontUser, model.Password);
-            await _userManager.AddToRoleAsync(thinFrontUser.Id, "Supplier");
+            var result = await _userManager.CreateAsync(supplier, model.Password);
+            await _userManager.AddToRoleAsync(supplier.Id, "Supplier");
             return result;
         }
 
         public async Task<ThinFrontUser> FindUser(string username, string password)
         {
             return await _userManager.FindAsync(username, password);
-        }
-
-        //Should the finduser method be divided by role?
-        public async Task<Customer> FindCustomer(string username, string password)
-        {
-            return await _userManager.FindAsync(username, password);
-        }
-        public async Task<ThinFrontUser> FindReseller(string username, string password)
-        {
-            return await _userManager.FindAsync(username, password);
-        }
-        public async Task<Supplier> FindSupplier(username, password)
-        {
-            return await _userManager.FindAsync(userName, password);
         }
     }
 }
