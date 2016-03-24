@@ -9,6 +9,7 @@ namespace ThinFront.Core.Models
 {
     public class OrderItemsModel
     {
+        public int OrderItemId { get; set; }
         // ProductId(PK) + OrderId(PK) = compound key
         // on the many side ot 1-to-many = capture ID
         public int ProductId { get; set; }

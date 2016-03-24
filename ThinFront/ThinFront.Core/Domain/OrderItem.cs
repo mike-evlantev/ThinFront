@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinFront.Core.Models;
 
 namespace ThinFront.Core.Domain
 {
     public class OrderItem
     {
+        public OrderItem()
+        {
+
+        }
+
+        public OrderItem(OrderItemsModel orderItem)
+        {
+            this.Update(orderItem);
+        }
+
+        public void Update(OrderItemsModel orderItem)
+        {
+            OrderItemId = orderItem.OrderItemId;
+            ProductId = orderItem.ProductId;
+            ProductQuantity = orderItem.ProductQuantity;
+            FinalPrice = orderItem.FinalPrice;
+        }
+
+        public int OrderItemId { get; set; }
         // ProductId(PK) + OrderId(PK) = compound key
         // on the many side ot 1-to-many = capture ID
         public int ProductId { get; set; }

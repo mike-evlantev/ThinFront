@@ -19,29 +19,53 @@ namespace ThinFront.API.Controllers
     {
         private IOrderRepository _orderRepository;
         private IOrderItemRepository _orderItemRepository;
+        private IProductRepository _productRepository;
         private IUnitOfWork _unitOfWork;
 
-        public OrdersController(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IThinFrontUserRepository userRepository, IUnitOfWork unitOfWork) : base(userRepository)
+        public OrdersController(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IProductRepository productRepository, IThinFrontUserRepository userRepository, IUnitOfWork unitOfWork) : base(userRepository)
         {
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemRepository;
+            _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Orders
-        [Route("api/orders")]
-        public IEnumerable<OrdersModel> GetOrders()
+        // // GET: api/Orders
+        // [Route("api/orders")]
+        // public IEnumerable<OrdersModel> GetOrders()
+        // {
+        //     return Mapper.Map<IEnumerable<OrdersModel>>(
+        //         _orderRepository.GetWhere(o => o.User.UserName == CurrentUser.UserName)    
+        //     );
+        // }
+
+        // GET: api/reseller/orders
+        [Route("api/reseller/orders")]
+        [Authorize(Roles = "Reseller")]
+        public IEnumerable<OrdersModel> GetOrdersForReseller()
         {
             return Mapper.Map<IEnumerable<OrdersModel>>(
-                _orderRepository.GetWhere(o => o.User.UserName == CurrentUser.UserName)    
+                _orderRepository.GetWhere(o => o.Customer.ResellerId == CurrentUser.Id)
             );
         }
 
-        // GET: api/Orders/5
-        [ResponseType(typeof(OrdersModel))]
-        public IHttpActionResult GetOrder(int id)
+        // GET: api/customer/orders
+        [Route("api/customer/orders")]
+        [Authorize(Roles = "Customer")]
+        public IEnumerable<OrdersModel> GetOrdersForCustomer()
         {
-            Order dbOrder = _orderRepository.GetFirstOrDefault(o => o.User.UserName == CurrentUser.UserName && o.OrderId == id);
+            return Mapper.Map<IEnumerable<OrdersModel>>(
+                _orderRepository.GetWhere(o => o.Customer.Id == CurrentUser.Id)
+            );
+        }
+
+        // GET: api/reseller/Orders/5
+        [Route("api/reseller/orders/{id}")]
+        [Authorize(Roles ="Reseller")]
+        [ResponseType(typeof(OrdersModel))]
+        public IHttpActionResult GetOrderForReseller(int id)
+        {
+            Order dbOrder = _orderRepository.GetFirstOrDefault(o => o.Customer.ResellerId == CurrentUser.Id && o.OrderId == id);
             if(dbOrder == null)
             {
                 return NotFound();
@@ -50,29 +74,50 @@ namespace ThinFront.API.Controllers
             return Ok(Mapper.Map<OrdersModel>(dbOrder));
         }
 
-        // GET: api/Orders/user
-        [Route("api/orders/user")]
-        public OrdersModel GetOrderForCurrentUser()
+        // GET: api/Orders/5
+        [Route("api/customer/orders/{id}")]
+        [Authorize(Roles = "Customer")]
+        [ResponseType(typeof(OrdersModel))]
+        public IHttpActionResult GetOrderForCustomer(int id)
         {
-            // var currentUser = _userRepository.GetFirstOrDefault(u => u.User.UserName == CurrentUser.UserName);
-            var dbOrder = _orderRepository.GetFirstOrDefault(o => o.User.UserName == CurrentUser.UserName);
-            if(dbOrder == null)
+            Order dbOrder = _orderRepository.GetFirstOrDefault(o => o.Customer.Id == CurrentUser.Id && o.OrderId == id);
+            if (dbOrder == null)
             {
-                return new OrdersModel
-                {
-                    OrderItems = new OrderItemsModel[]
-                    {
-                        // creates an order with a number of items
-                    }
-                };
+                return NotFound();
             }
-            else
-            {
-                return Mapper.Map<OrdersModel>(dbOrder);
-            }
+
+            return Ok(Mapper.Map<OrdersModel>(dbOrder));
+        }
+
+        // GET: api/Orders/date
+        [Route("api/reseller/orders/{startDate}/{endDate}")]
+        [Authorize(Roles = "Reseller")]
+        public IEnumerable<OrdersModel> GetOrdersForResellerByDate(DateTime startDate, DateTime endDate)
+        {
+            return Mapper.Map<IEnumerable<OrdersModel>>(
+                _orderRepository.GetWhere(o => o.OrderDate >= startDate && o.OrderDate <= endDate && o.Customer.ResellerId == CurrentUser.Id)
+                );
         }
 
         // GET: api/Orders/5/OrderItems
+        [Route("api/orders/{orderId}/orderitems")]
+        public IEnumerable<OrderItemsModel> GetOrderItemsForOrder(int id)
+        {
+            var orderItems = _orderItemRepository.GetWhere(oi => oi.OrderId == id && oi.Order.Customer.Id == CurrentUser.Id);
+
+            return Mapper.Map<IEnumerable<OrderItemsModel>>(orderItems);
+        }
+
+        // Do not create controllers for your many-to-many relation tables. 
+        // Instead, create additional actions on either side of the relationship that accesses the opposite side of the relationship.
+        // EX: Odrder 1-> OrderItems <-1 Product​
+
+        //GET: api/Orders/5/Products
+        [Route("api/orders/{orderId}/products")]
+        public IEnumerable<ProductsModel> GetProductsForOrder(int orderId)
+        {
+            return Mapper.Map<IEnumerable<ProductsModel>>(_productRepository.GetWhere(p => p.OrderItems.Any(oi => oi.OrderId == orderId)));
+        }
 
         // PUT: api/Orders/5
         [ResponseType(typeof(void))]
@@ -83,7 +128,7 @@ namespace ThinFront.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            Order dbOrder = _orderRepository.GetFirstOrDefault(o => o.User.UserName == CurrentUser.UserName && o.OrderId == id);
+            Order dbOrder = _orderRepository.GetFirstOrDefault(o => o.Customer.UserName == CurrentUser.UserName && o.OrderId == id);
 
             if (id != order.OrderId)
             {
@@ -100,7 +145,7 @@ namespace ThinFront.API.Controllers
             }
             catch (Exception)
             {
-                if (!BoxExists(id))
+                if (!OrderExists(id))
                 {
                     return NotFound();
                 }
@@ -109,11 +154,11 @@ namespace ThinFront.API.Controllers
                     throw;
                 }
             }
-
+            // returns a 204 (OK) that doesnt have any content
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Boxes
+        // POST: api/Orders
         [ResponseType(typeof(OrdersModel))]
         public IHttpActionResult PostOrder(OrdersModel order)
         {
@@ -124,16 +169,14 @@ namespace ThinFront.API.Controllers
 
             var dbOrder = new Order();
 
-            dbOrder.User = _userRepository.GetFirstOrDefault(u => u.UserName == CurrentUser.UserName);
+            dbOrder.Customer = _userRepository.GetFirstOrDefault(u => u.UserName == CurrentUser.UserName);
 
             dbOrder.Update(order);
 
-            foreach (var boxItem in dbOrder.OrderItems)
+            foreach (var orderItem in order.OrderItems)
             {
-                boxItem.BoxItemPrice = _configRepository.GetAll().First().CurrentBoxItemPrice;
+                dbOrder.OrderItems.Add(new OrderItem(orderItem));
             }
-
-            _orderRepository.Add(dbOrder);
 
             _unitOfWork.Commit();
 
@@ -146,8 +189,7 @@ namespace ThinFront.API.Controllers
         [ResponseType(typeof(OrdersModel))]
         public IHttpActionResult DeleteOrder(int id)
         {
-            // Box box = db.Boxes.Find(id);
-            Order dbOrder = _orderRepository.GetFirstOrDefault(b => b.User.UserName == User.Identity.Name && b.OrderId == id);
+            Order dbOrder = _orderRepository.GetFirstOrDefault(o => o.Customer.UserName == CurrentUser.UserName && o.OrderId == id);
 
             if (dbOrder == null)
             {

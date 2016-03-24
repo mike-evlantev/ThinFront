@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinFront.Core.Models;
 
 namespace ThinFront.Core.Domain
 {
     public class Inventory
     {
+        // Update method used in the InventoriesController(API)
+        public void Update(InventoriesModel inventory)
+        {
+            // ???Update InventoryId???
+            InventoryId = inventory.InventoryId;
+            SupplierId = inventory.SupplierId;
+            ProductQuantity = inventory.ProductQuantity;
+        } 
+
         public int InventoryId { get; set; }
         public int SupplierId { get; set; }
         public int ProductQuantity { get; set; }

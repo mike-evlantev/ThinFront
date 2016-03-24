@@ -156,7 +156,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AddressesController.cs" />
+    <Compile Include="Controllers\InventoriesController.cs" />
+    <Compile Include="Controllers\OrderItemsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductCategoryController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductSubcategoryController.cs" />
+    <Compile Include="Controllers\PromotionalProductsController.cs" />
+    <Compile Include="Controllers\PromotionsController.cs" />
+    <Compile Include="Controllers\ThinFrontUsersController.cs" />
     <Compile Include="Infrastructure\BaseApiController.cs" />
     <Compile Include="Infrastructure\ThinFrontAuthorizationServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

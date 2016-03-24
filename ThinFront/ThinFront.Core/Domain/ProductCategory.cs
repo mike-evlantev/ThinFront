@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinFront.Core.Models;
 
 namespace ThinFront.Core.Domain
 {
     public class ProductCategory
     {
+        // Update method used in the ProductCategoriesController (API)
+        public void Update(ProductCategoriesModel productCategory)
+        {
+            // ProductCategoryId = productCategory.ProductCategoryId;
+            ProductCategoryName = productCategory.ProductCategoryName;
+            InventoryId = productCategory.InventoryId;
+
+        }
         public int ProductCategoryId { get; set; }
         public string ProductCategoryName { get; set; }
         public int InventoryId { get; set; }

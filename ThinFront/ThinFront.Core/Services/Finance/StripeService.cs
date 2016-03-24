@@ -30,10 +30,13 @@ namespace ThinFront.Core.Services.Finance
             customerCharge.Currency = "usd";
             customerCharge.Description = "Purchase at ResellerName";
 
-            //customerCharge.Source = new StripeSourceOptions()
-            //{
-            //    TokenId = token
-            //};
+            customerCharge.Source = new StripeSourceOptions()
+            {
+                TokenId = token
+            };
+
+            var chargeService = new StripeChargeService();
+            StripeCharge stripeCharge = chargeService.Create(customerCharge);
         }
         
     }

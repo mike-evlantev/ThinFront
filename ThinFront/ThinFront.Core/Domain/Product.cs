@@ -3,13 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ThinFront.Core.Models;
 
 namespace ThinFront.Core.Domain
 {
     public class Product
     {
+        // POST 
+        public Product(ProductsModel product)
+        {
+            this.Update(product);
+        }
+
+
+        // Update method that is used in the ProductController (API)
+        public void Update(ProductsModel product)
+        {
+            ProductId = product.ProductId;
+            ProductSubcategoryId = product.ProductSubcategoryId;
+            ImageUrl = product.ImageUrl;
+            Brand = product.Brand;
+            Title = product.Title;
+            Description = product.Description;
+            Size = product.Size;
+            Color = product.Color;
+            Price = product.Price;
+        }
         public int ProductId { get; set; }
-        public int ProductSubCategoryId { get; set; }
+        public int ProductSubcategoryId { get; set; }
         public string ImageUrl { get; set; }
         public string Brand { get; set; }
         public string Title { get; set; }
@@ -19,7 +40,7 @@ namespace ThinFront.Core.Domain
         public decimal Price { get; set; }
 
         // on the 1 side of 1-to-many
-        public virtual ProductSubcategory ProductSubCategory { get; set; }
+        public virtual ProductSubcategory ProductSubcategory { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<PromotionalProduct> PromotionalProducts { get; set; }
     }

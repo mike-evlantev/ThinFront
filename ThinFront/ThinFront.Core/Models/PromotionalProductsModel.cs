@@ -9,6 +9,7 @@ namespace ThinFront.Core.Models
 {
     public class PromotionalProductsModel
     {
+        public int PromotionalProductId { get; set; }
         // needs compound key
         public int ProductId { get; set; }
         public int PromotionId { get; set; }

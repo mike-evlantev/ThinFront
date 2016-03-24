@@ -9,7 +9,7 @@ namespace ThinFront.Core.Models
     public class ProductsModel
     {
         public int ProductId { get; set; }
-        public int ProductSubCategoryId { get; set; }
+        public int ProductSubcategoryId { get; set; }
         public string ImageUrl { get; set; }
         public string Brand { get; set; }
         public string Title { get; set; }

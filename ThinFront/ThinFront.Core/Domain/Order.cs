@@ -16,7 +16,6 @@ namespace ThinFront.Core.Domain
             OrderId = order.OrderId;
             CustomerId = order.CustomerId;
             OrderDate = order.OrderDate;
-            OrderTotal = order.OrderTotal;
         }
         
         // properties 
@@ -36,7 +35,7 @@ namespace ThinFront.Core.Domain
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 
         // on the many side of 1-to-many
-        public virtual ThinFrontUser User { get; set; }
+        public virtual ThinFrontUser Customer { get; set; }
         //public virtual Customer Customer { get; set; }
     }
 }

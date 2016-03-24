@@ -141,8 +141,8 @@ namespace ThinFront.Data.Infrastructure
             // model compound key of entity ProductSubcategory
             modelBuilder.Entity<ProductSubcategory>()
                         .HasMany(psc => psc.Products)
-                        .WithRequired(p => p.ProductSubCategory)
-                        .HasForeignKey(p => p.ProductSubCategoryId);
+                        .WithRequired(p => p.ProductSubcategory)
+                        .HasForeignKey(p => p.ProductSubcategoryId);
 
 
 
@@ -178,7 +178,7 @@ namespace ThinFront.Data.Infrastructure
 
             modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(r => r.ResellerProductCategories)
-                        .WithRequired(rpc => rpc.Reseller)
+                        .WithRequired(rpc => rpc.User)
                         .HasForeignKey(rpc => rpc.ResellerId)
                         .WillCascadeOnDelete(false);
                         // ResellerProductCategories will be deleted through

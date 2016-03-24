@@ -8,9 +8,9 @@ namespace ThinFront.Core.Models
 {
     public class ProductSubcategoriesModel
     {
-        // compound key
-        public int ProductCategoryId { get; set; }
+        public int ProductSubcategoryId { get; set; }
         public int ProductSubcategoryName { get; set; }
+        public int ProductCategoryId { get; set; }
 
         public IEnumerable<ProductsModel> Products { get; set; }
     }
