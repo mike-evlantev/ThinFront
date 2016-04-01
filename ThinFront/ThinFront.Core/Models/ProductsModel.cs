@@ -17,5 +17,7 @@ namespace ThinFront.Core.Models
         public string Size { get; set; }
         public string Color { get; set; }
         public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public bool Checked { get; set; }
     }
 }

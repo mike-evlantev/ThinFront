@@ -17,7 +17,7 @@ namespace ThinFront.Core.Domain
             ProductCategoryId = productSubcategory.ProductCategoryId;
         }
         public int ProductSubcategoryId { get; set; }
-        public int ProductSubcategoryName { get; set; }
+        public string ProductSubcategoryName { get; set; }
         public int ProductCategoryId { get; set; }
 
         //on the many side of 1-to-many

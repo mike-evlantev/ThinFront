@@ -1,0 +1,86 @@
+﻿
+
+        <div id="heading-breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1>Products</h1>
+                    </div>
+                    <div class="col-md-5">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Home</a>
+                            </li>
+                            <li>Products</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="container">
+                <p class="text-muted lead text-center">Our company provides customer satisfaction through our team members every step of the way.</p>
+
+                <div class="row products">
+
+                    <div class="col-md-3 col-sm-4" ng-repeat="product in products">
+                        <div class="product">
+                            <div class="image">
+                                <a ui-sref="productdetail">
+                                    <img src="{{product.ImageUrl}}" alt="" class="img-responsive image1">
+                                </a>
+                            </div>
+                            <!-- /.image -->
+                            <div class="text">
+                                <h3><a ui-sref="productdetail">{{product.Title}}</a></h3>
+                                <p class="price">{{product.Price}}</p>
+                                <p class="buttons">
+                                    <a href="shop-detail.html" class="btn btn-default">View detail</a>
+                                    <a href="shop-basket.html" class="btn btn-template-main"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                </p>
+                            </div>
+                            <!-- /.text -->
+                        </div>
+                        <!-- /.product -->
+                    </div>
+
+                    <!-- /.col-md-4 -->
+                </div>
+                <!-- /.products -->
+
+                <div class="col-sm-12">
+
+                    
+
+                    <div class="pages">
+
+                        <p class="loadMore">
+                            <a href="#" class="btn btn-template-main"><i class="fa fa-chevron-down"></i> Load more</a>
+                        </p>
+
+                        <ul class="pagination">
+                            <li><a href="#">&laquo;</a>
+                            </li>
+                            <li class="active"><a href="#">1</a>
+                            </li>
+                            <li><a href="#">2</a>
+                            </li>
+                            <li><a href="#">3</a>
+                            </li>
+                            <li><a href="#">4</a>
+                            </li>
+                            <li><a href="#">5</a>
+                            </li>
+                            <li><a href="#">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.col-sm-12 -->
+
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#content -->

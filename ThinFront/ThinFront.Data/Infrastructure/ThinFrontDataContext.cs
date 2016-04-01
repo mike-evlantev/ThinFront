@@ -35,6 +35,7 @@ namespace ThinFront.Data.Infrastructure
         public IDbSet<Role> Roles { get; set; }
         //public IDbSet<Supplier> Suppliers { get; set; }
         public IDbSet<ThinFrontUser> Users { get; set; }
+        public IDbSet<ResellerProduct> ResellerProducts { get; set; }
 
         // Explicitly model relationships
         // Code-First Fluent API
@@ -97,6 +98,8 @@ namespace ThinFront.Data.Infrastructure
                         .WithRequired(pc => pc.Inventory)
                         .HasForeignKey(pc => pc.InventoryId);
 
+            modelBuilder.Entity<ResellerProduct>().HasKey(rp => new { rp.ResellerId, rp.ProductId });
+
             // model of Order
             // on the 1 side of 1-to-many with Address
             modelBuilder.Entity<Order>()
@@ -118,6 +121,11 @@ namespace ThinFront.Data.Infrastructure
                         .HasMany(p => p.OrderItems)
                         .WithRequired(oi => oi.Product)
                         .HasForeignKey(oi => oi.ProductId);
+
+            modelBuilder.Entity<Product>()
+                        .HasMany(p => p.ResellerProducts)
+                        .WithRequired(pr => pr.Product)
+                        .HasForeignKey(pr => pr.ProductId);
 
             modelBuilder.Entity<Product>()
                         .HasMany(p => p.PromotionalProducts)
@@ -174,7 +182,12 @@ namespace ThinFront.Data.Infrastructure
                         .HasMany(r => r.Customers)
                         .WithOptional(c => c.Reseller)
                         .HasForeignKey(c => c.ResellerId);
-                        
+
+            modelBuilder.Entity<ThinFrontUser>()
+                        .HasMany(r => r.ResellerProducts)
+                        .WithRequired(r => r.Reseller)
+                        .HasForeignKey(r => r.ResellerId)
+                        .WillCascadeOnDelete(true);                    
 
             modelBuilder.Entity<ThinFrontUser>()
                         .HasMany(r => r.ResellerProductCategories)

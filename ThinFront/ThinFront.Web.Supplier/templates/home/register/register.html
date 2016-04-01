@@ -1,0 +1,71 @@
+﻿<div class="container">
+    <h3>Please fill out the fields below (all fields required)</h3>
+
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" class="form-control input-lg text-center" autofocus ng-model="registration.CompanyName" />
+        </div>
+    </div>
+
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.FirstName" />
+        </div>
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.LastName" />
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.Phone" />
+        </div>
+        <div class="form-group">
+            <label>Fax</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.Fax" />
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.EmailAddress" />
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Address 1</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.BillingAddress.Address1" />
+        </div>
+        <div class="form-group">
+            <label>Address 2</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.BillingAddress.Address2" />
+        </div>
+        <div class="form-group">
+            <label>City</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.BillingAddress.City" />
+        </div>
+        <div class="form-group">
+            <label>State</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.BillingAddress.State" />
+        </div>
+        <div class="form-group">
+            <label>Zip Code</label>
+            <input type="email" class="form-control input-lg text-center" ng-model="registration.BillingAddress.Zip" />
+        </div>
+    </div>
+    
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control input-lg text-center" ng-model="registration.Password" />
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control input-lg text-center" ng-model="registration.ConfirmPassword" />
+        </div>
+
+        <button class="btn btn-success btn-lg" ng-click="register()">Register</button>
+    </div>
+</div>
+

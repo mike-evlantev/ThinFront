@@ -69,6 +69,7 @@
     <Compile Include="Domain\Promotion.cs" />
     <Compile Include="Domain\PromotionalProduct.cs" />
     <Compile Include="Domain\Reseller.cs" />
+    <Compile Include="Domain\ResellerProduct.cs" />
     <Compile Include="Domain\ResellerProductCategory.cs" />
     <Compile Include="Domain\Role.cs" />
     <Compile Include="Domain\Supplier.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Repository\IPromotionalProductRepository.cs" />
     <Compile Include="Repository\IPromotionRepository.cs" />
     <Compile Include="Repository\IResellerProductCategoryRepository.cs" />
+    <Compile Include="Repository\IResellerProductRepository.cs" />
     <Compile Include="Repository\IResellerRepository.cs" />
     <Compile Include="Repository\IRoleRepository.cs" />
     <Compile Include="Repository\ISupplierRepository.cs" />

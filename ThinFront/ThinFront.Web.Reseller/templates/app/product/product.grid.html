@@ -1,0 +1,48 @@
+﻿<div>
+    <ul>
+        <li ng-repeat="productcategory in productCategories">
+            <div>
+                {{productcategory.ProductCategoryName}}
+            </div>
+            <ul >
+                <li ng-repeat="productsubcategory in productcategory.ProductSubcategories" >
+                    <div>
+                        {{productsubcategory.ProductSubcategoryName}}
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <table style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td style="width:40%"><u>Title</u></td>
+                                            <td style="width:15%"><u>Price</u></td>
+                                            <td style="width:15%"><u>Color</u></td>
+                                            <td style="width:15%"><u>Size</u></td>
+                                            <td style="width:15%"><u>Quantity</u></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-repeat="product in productsubcategory.Products" >
+                                        <tr>
+                                            <td style="padding-right: 6px">
+                                                <input type="checkbox" ng-change="addToStore(product)" ng-model="product.Checked">
+                                            </td>
+                                            <td>{{product.Title}}</td>
+                                            <td>{{product.Price}}</td>
+                                            <td>{{product.Color}}</td>
+                                            <td>{{product.Size}}</td>
+                                            <td>{{product.Quantity}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<!--<pre>{{inventories | json}}</pre>-->

@@ -12,10 +12,10 @@ C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\EntityFramework.SqlServer.xm
 C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.dll
 C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.pdb
-C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\Stripe.net.dll
-C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\Newtonsoft.Json.dll
-C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\ModernHttpClient.dll
-C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\Stripe.net.pdb
-C:\dev\ThinFront\ThinFront\ThinFront.Data\bin\Debug\Newtonsoft.Json.xml
 C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.Migrations.InitialMigration.resources
 C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.csproj.GenerateResource.Cache
+C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.Migrations.DataContextUpdated.resources
+C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.Migrations.Qtymovedtoproductclass.resources
+C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.Migrations.qtyremovedfrominv.resources
+C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.Migrations.prodsubcatnamechangedfrominttostring.resources
+C:\dev\ThinFront\ThinFront\ThinFront.Data\obj\Debug\ThinFront.Data.Migrations.AddResellerProductTable.resources

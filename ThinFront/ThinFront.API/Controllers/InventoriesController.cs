@@ -33,9 +33,13 @@ namespace ThinFront.API.Controllers
         [Authorize(Roles = "Supplier")] 
         public IEnumerable<InventoriesModel> GetInventoriesForCurrentUser()
         {
-            return Mapper.Map<IEnumerable<InventoriesModel>>(
-                _inventoryRepository.GetWhere(i => i.Supplier.SupplierId == CurrentUser.Id)
+            var inventories = _inventoryRepository.GetWhere(i => i.SupplierId == CurrentUser.Id);
+
+            var mappedInventories = Mapper.Map<IEnumerable<InventoriesModel>>(
+                inventories
             );
+
+            return mappedInventories;
         }
 
         //GET: api/Inventories/5
@@ -43,7 +47,7 @@ namespace ThinFront.API.Controllers
         [Authorize(Roles = "Supplier")]
         public IHttpActionResult GetInventory(int id)
         {
-            Inventory dbInventory = _inventoryRepository.GetFirstOrDefault(i => i.Supplier.SupplierId == CurrentUser.Id && i.InventoryId == id);
+            Inventory dbInventory = _inventoryRepository.GetFirstOrDefault(i => i.SupplierId == CurrentUser.Id && i.InventoryId == id);
             if (dbInventory == null)
             {
                 return NotFound();
@@ -54,9 +58,9 @@ namespace ThinFront.API.Controllers
 
         // GET: api/Inventories/5/ProductCategories
         [Route("api/inventories/{inventoryId}/productcategories")]
-        public IEnumerable<ProductCategoriesModel> GetProductCategoriesForInventory(int id)
+        public IEnumerable<ProductCategoriesModel> GetProductCategoriesForInventory(int inventoryId)
         {
-            var productCategories = _productCategoryRepository.GetWhere(pc => pc.InventoryId == id);
+            var productCategories = _productCategoryRepository.GetWhere(pc => pc.InventoryId == inventoryId);
 
             return Mapper.Map<IEnumerable<ProductCategoriesModel>>(productCategories);
         }
@@ -128,7 +132,7 @@ namespace ThinFront.API.Controllers
         [Authorize(Roles = "Supplier")]
         public IHttpActionResult DeleteInventory(int id)
         {
-            Inventory dbInventory = _inventoryRepository.GetFirstOrDefault(i => i.Supplier.SupplierId == CurrentUser.Id && i.InventoryId == id);
+            Inventory dbInventory = _inventoryRepository.GetFirstOrDefault(i => i.SupplierId == CurrentUser.Id && i.InventoryId == id);
 
             if (dbInventory == null)
             {

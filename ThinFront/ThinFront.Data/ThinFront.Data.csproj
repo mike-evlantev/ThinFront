@@ -64,6 +64,26 @@
     <Compile Include="Migrations\201603182308175_InitialMigration.Designer.cs">
       <DependentUpon>201603182308175_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603251618595_DataContextUpdated.cs" />
+    <Compile Include="Migrations\201603251618595_DataContextUpdated.Designer.cs">
+      <DependentUpon>201603251618595_DataContextUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603292037214_Qtymovedtoproductclass.cs" />
+    <Compile Include="Migrations\201603292037214_Qtymovedtoproductclass.Designer.cs">
+      <DependentUpon>201603292037214_Qtymovedtoproductclass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603292040278_qtyremovedfrominv.cs" />
+    <Compile Include="Migrations\201603292040278_qtyremovedfrominv.Designer.cs">
+      <DependentUpon>201603292040278_qtyremovedfrominv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603292044395_prodsubcatnamechangedfrominttostring.cs" />
+    <Compile Include="Migrations\201603292044395_prodsubcatnamechangedfrominttostring.Designer.cs">
+      <DependentUpon>201603292044395_prodsubcatnamechangedfrominttostring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604010127442_AddResellerProductTable.cs" />
+    <Compile Include="Migrations\201604010127442_AddResellerProductTable.Designer.cs">
+      <DependentUpon>201604010127442_AddResellerProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AddressRepository.cs" />
@@ -78,6 +98,7 @@
     <Compile Include="Repository\PromotionalProductRepository.cs" />
     <Compile Include="Repository\PromotionRepository.cs" />
     <Compile Include="Repository\ResellerProductCategoryRepository.cs" />
+    <Compile Include="Repository\ResellerProductRepository.cs" />
     <Compile Include="Repository\ResellerRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\SupplierRepository.cs" />
@@ -96,6 +117,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603182308175_InitialMigration.resx">
       <DependentUpon>201603182308175_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603251618595_DataContextUpdated.resx">
+      <DependentUpon>201603251618595_DataContextUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603292037214_Qtymovedtoproductclass.resx">
+      <DependentUpon>201603292037214_Qtymovedtoproductclass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603292040278_qtyremovedfrominv.resx">
+      <DependentUpon>201603292040278_qtyremovedfrominv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603292044395_prodsubcatnamechangedfrominttostring.resx">
+      <DependentUpon>201603292044395_prodsubcatnamechangedfrominttostring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604010127442_AddResellerProductTable.resx">
+      <DependentUpon>201604010127442_AddResellerProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

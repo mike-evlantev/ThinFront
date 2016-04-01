@@ -9,6 +9,11 @@ namespace ThinFront.Core.Domain
 {
     public class Product
     {
+        public Product()
+        {
+
+        }
+
         // POST 
         public Product(ProductsModel product)
         {
@@ -28,6 +33,7 @@ namespace ThinFront.Core.Domain
             Size = product.Size;
             Color = product.Color;
             Price = product.Price;
+            Quantity = product.Quantity;
         }
         public int ProductId { get; set; }
         public int ProductSubcategoryId { get; set; }
@@ -38,10 +44,12 @@ namespace ThinFront.Core.Domain
         public string Size { get; set; }
         public string Color { get; set; }
         public decimal Price { get; set; }
+        public int Quantity { get; set; }
 
         // on the 1 side of 1-to-many
         public virtual ProductSubcategory ProductSubcategory { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<PromotionalProduct> PromotionalProducts { get; set; }
+        public virtual ICollection<ResellerProduct> ResellerProducts { get; set; }
     }
 }

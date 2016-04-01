@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -19,17 +20,19 @@ namespace ThinFront.API.Controllers
     {
         private IRoleRepository _roleRepository;
         private IThinFrontUserRepository _thinFrontUserRepository;
+        private IResellerProductRepository _resellerProductRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ThinFrontUsersController(IRoleRepository roleRepository, IThinFrontUserRepository userRepository, IUnitOfWork unitOfWork) : base(userRepository)
+        public ThinFrontUsersController(IRoleRepository roleRepository, IResellerProductRepository resellerProductRepository, IThinFrontUserRepository userRepository, IUnitOfWork unitOfWork) : base(userRepository)
         {
             _roleRepository = roleRepository;
             _thinFrontUserRepository = userRepository;
+            _resellerProductRepository = resellerProductRepository;
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/ThinFrontUser
-        public IEnumerable<ThinFrontUsersModel> GetThinFrontUser()
+        // GET: api/ThinFrontUsers
+        public IEnumerable<ThinFrontUsersModel> GetThinFrontUsers()
         {
             return Mapper.Map<IEnumerable<ThinFrontUsersModel>>(
                 _thinFrontUserRepository.GetAll()
@@ -56,9 +59,93 @@ namespace ThinFront.API.Controllers
                 );
         }
 
+        [Route("api/resellers/{resellerId}/products")]
+        [Authorize(Roles = "Customer")]
+        public IEnumerable<ProductsModel> GetProductsForReseller(int resellerId)
+        {
+            var reseller = _userRepository.GetById(resellerId);
+
+            return Mapper.Map<IEnumerable<ProductsModel>>(reseller.ResellerProducts.Select(p => p.Product));
+        }
+
+        [Route("api/resellers/{resellerId}/productCategories")]
+        [Authorize(Roles = "Customer")]
+        public IEnumerable<ProductCategoriesModel> GetCategoriesForReseller(int resellerId)
+        {
+            var reseller = _userRepository.GetById(resellerId);
+
+            var mappedCategories = Mapper.Map<IEnumerable<ProductCategoriesModel>>(reseller.ResellerProductCategories.Select(rp => rp.ProductCategory));
+
+            foreach(var mc in mappedCategories)
+            {
+                foreach(var sc in mc.ProductSubcategories)
+                {
+                    sc.Products = sc.Products.Where(scp => reseller.ResellerProducts.Any(rpc => rpc.ProductId == scp.ProductId));
+                }
+            }
+
+            return mappedCategories;
+        }
+
+        [Route("api/resellers/products")]
+        [Authorize(Roles = "Reseller")]
+        [HttpGet]
+        public IEnumerable<ProductsModel> GetProductsForCurrentReseller()
+        {
+            return Mapper.Map<IEnumerable<ProductsModel>>(CurrentUser.ResellerProducts.Select(p => p.Product));
+        }
+
+        [Route("api/resellers/products/{productId}")]
+        [HttpPost]
+        [Authorize(Roles = "Reseller")]
+        public IHttpActionResult MakeProductAvailable(int productId)
+        {
+            CurrentUser.ResellerProducts.Add(new ResellerProduct
+            {
+                ProductId = productId
+            });
+
+            _userRepository.Update(CurrentUser);
+
+            _unitOfWork.Commit();
+
+            return Ok();
+        }
+
+        [Route("api/resellers/products/{productId}")]
+        [HttpDelete]
+        [Authorize(Roles = "Reseller")]
+        public IHttpActionResult MakeProductUnavailable(int productId)
+        {
+            var resellerProduct = CurrentUser.ResellerProducts.FirstOrDefault(p => p.ProductId == productId);
+
+            if(resellerProduct != null)
+            {
+                _resellerProductRepository.Delete(resellerProduct);
+
+                _unitOfWork.Commit();
+            }
+
+            return Ok();
+        }
+
+        // GET: /api/ThinFrontUser/user
+        [Route("api/thinfrontuser/user")]
+        public IHttpActionResult GetCurrentUser()
+        {
+            var currentUser = _thinFrontUserRepository.GetFirstOrDefault(u => u.UserName == CurrentUser.UserName);
+            if (currentUser == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(Mapper.Map<ThinFrontUsersModel>(currentUser));
+
+        }
+
         // GET: api/ThinFrontUser/5
         [ResponseType(typeof(ThinFrontUsersModel))]
-        public IHttpActionResult GetPawzeUser(int id)
+        public IHttpActionResult GetThinFrontUser(int id)
         {
             ThinFrontUser dbThinFrontUser = _thinFrontUserRepository.GetById(id);
 

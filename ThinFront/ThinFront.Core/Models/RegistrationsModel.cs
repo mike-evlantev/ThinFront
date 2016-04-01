@@ -21,10 +21,10 @@ namespace ThinFront.Core.Models
             [Required]
             public string Phone { get; set; }
 
-            [Required]
+            // [Required]
             public AddressesModel BillingAddress {get;set;}
 
-            [Required]
+            // [Required]
             public AddressesModel ShippingAddress { get; set; }
 
             [Required]
@@ -56,7 +56,7 @@ namespace ThinFront.Core.Models
             [Required]
             public AddressesModel BillingAddress { get; set; }
 
-            [Required]
+            // [Required]
             public AddressesModel ShippingAddress { get; set; }
 
             [Required]
@@ -93,7 +93,7 @@ namespace ThinFront.Core.Models
             [Required]
             public AddressesModel BillingAddress { get; set; }
 
-            [Required]
+            // [Required]
             public AddressesModel ShippingAddress { get; set; }
 
             [Required]

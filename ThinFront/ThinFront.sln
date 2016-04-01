@@ -9,26 +9,89 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThinFront.Data", "ThinFront
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThinFront.API", "ThinFront.API\ThinFront.API.csproj", "{5A72D8EB-0737-4156-B408-26956D12DCD6}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ThinFront.Web", "ThinFront.Web\", "{47DCC089-8153-449B-8158-2AE13FC50975}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ThinFront.Web.Marketing", "ThinFront.Web.Marketing\", "{A4E80638-7653-458A-894A-7ADF54B04209}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_49840"
-		Debug.AspNetCompiler.PhysicalPath = "ThinFront.Web\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49840\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50227"
+		Debug.AspNetCompiler.PhysicalPath = "ThinFront.Web.Marketing\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50227\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_49840"
-		Release.AspNetCompiler.PhysicalPath = "ThinFront.Web\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49840\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50227"
+		Release.AspNetCompiler.PhysicalPath = "ThinFront.Web.Marketing\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50227\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "49840"
-		SlnRelativePath = "ThinFront.Web\"
+		VWDPort = "50227"
+		SlnRelativePath = "ThinFront.Web.Marketing\"
 		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ThinFront.Web.Customer", "ThinFront.Web.Customer\", "{FF5251FC-F078-4AE5-BEF4-FDE2D519C319}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50228"
+		Debug.AspNetCompiler.PhysicalPath = "ThinFront.Web.Customer\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50228\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50228"
+		Release.AspNetCompiler.PhysicalPath = "ThinFront.Web.Customer\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50228\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50228"
+		SlnRelativePath = "ThinFront.Web.Customer\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ThinFront.Web.Reseller", "ThinFront.Web.Reseller\", "{F647F977-483E-4216-8760-4AD9A12BBDE7}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50230"
+		Debug.AspNetCompiler.PhysicalPath = "ThinFront.Web.Reseller\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50230\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50230"
+		Release.AspNetCompiler.PhysicalPath = "ThinFront.Web.Reseller\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50230\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50230"
+		SlnRelativePath = "ThinFront.Web.Reseller\"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ThinFront.Web.Supplier", "ThinFront.Web.Supplier\", "{61206DD8-5EAB-4A31-9479-E8131B51C310}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50231"
+		Debug.AspNetCompiler.PhysicalPath = "ThinFront.Web.Supplier\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50231\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50231"
+		Release.AspNetCompiler.PhysicalPath = "ThinFront.Web.Supplier\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50231\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50231"
+		SlnRelativePath = "ThinFront.Web.Supplier\"
 	EndProjectSection
 EndProject
 Global
@@ -49,10 +112,22 @@ Global
 		{5A72D8EB-0737-4156-B408-26956D12DCD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A72D8EB-0737-4156-B408-26956D12DCD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A72D8EB-0737-4156-B408-26956D12DCD6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47DCC089-8153-449B-8158-2AE13FC50975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47DCC089-8153-449B-8158-2AE13FC50975}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47DCC089-8153-449B-8158-2AE13FC50975}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{47DCC089-8153-449B-8158-2AE13FC50975}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A4E80638-7653-458A-894A-7ADF54B04209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E80638-7653-458A-894A-7ADF54B04209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E80638-7653-458A-894A-7ADF54B04209}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E80638-7653-458A-894A-7ADF54B04209}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{FF5251FC-F078-4AE5-BEF4-FDE2D519C319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5251FC-F078-4AE5-BEF4-FDE2D519C319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5251FC-F078-4AE5-BEF4-FDE2D519C319}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5251FC-F078-4AE5-BEF4-FDE2D519C319}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F647F977-483E-4216-8760-4AD9A12BBDE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F647F977-483E-4216-8760-4AD9A12BBDE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F647F977-483E-4216-8760-4AD9A12BBDE7}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F647F977-483E-4216-8760-4AD9A12BBDE7}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{61206DD8-5EAB-4A31-9479-E8131B51C310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61206DD8-5EAB-4A31-9479-E8131B51C310}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61206DD8-5EAB-4A31-9479-E8131B51C310}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{61206DD8-5EAB-4A31-9479-E8131B51C310}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

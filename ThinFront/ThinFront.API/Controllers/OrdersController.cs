@@ -116,7 +116,9 @@ namespace ThinFront.API.Controllers
         [Route("api/orders/{orderId}/products")]
         public IEnumerable<ProductsModel> GetProductsForOrder(int orderId)
         {
-            return Mapper.Map<IEnumerable<ProductsModel>>(_productRepository.GetWhere(p => p.OrderItems.Any(oi => oi.OrderId == orderId)));
+            return Mapper.Map<IEnumerable<ProductsModel>>(
+                _productRepository.GetWhere(p => p.OrderItems.Any(oi => oi.OrderId == orderId))
+            );
         }
 
         // PUT: api/Orders/5

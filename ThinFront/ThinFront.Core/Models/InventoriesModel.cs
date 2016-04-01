@@ -10,6 +10,6 @@ namespace ThinFront.Core.Models
     {
         public int InventoryId { get; set; }
         public int SupplierId { get; set; }
-        public int ProductQuantity { get; set; }
+        public IEnumerable<ProductCategoriesModel> ProductCategories { get; set; }
     }
 }

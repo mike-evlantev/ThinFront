@@ -92,6 +92,7 @@ namespace ThinFront.API
             container.Register<IRoleRepository, RoleRepository>();
             //container.Register<ISupplierRepository, SupplierRepository>();
             container.Register<IThinFrontUserRepository, ThinFrontUserRepository>();
+            container.Register<IResellerProductRepository, ResellerProductRepository>();
 
             // Services
             // 3rd party API implementation should be decoupled (needs a service and separate class)

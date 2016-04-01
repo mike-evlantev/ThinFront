@@ -1,0 +1,73 @@
+﻿
+        <div id="heading-breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h1>New account</h1>
+                    </div>
+                    <div class="col-md-5">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Home</a>
+                            </li>
+                            <li>New account</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <div class="box">
+                            <h2 class="text-uppercase">New account</h2>
+
+                            <p class="lead">Not our registered customer yet?</p>
+                            <p>Register now and open up a world of premium motorcycle gear and parts as well as fantastic deals. The whole process will not take you more than a minute!</p>
+                            <p class="text-muted">If you have any questions, please feel free to <a ui-sref="contact">contact us</a>, our customer service center is working for you 24/7.</p>
+
+                            <hr>
+
+                            <form>
+                                <div class="form-group">
+                                    <label for="name-login">First Name</label>
+                                    <input type="text" class="form-control" id="name-login" autofocus ng-model="registration.FirstName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name-login">Last Name</label>
+                                    <input type="text" class="form-control" id="name-login" ng-model="registration.LastName">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name-login">Phone</label>
+                                    <input type="text" class="form-control" id="name-login" ng-model="registration.Phone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name-login">Email</label>
+                                    <input type="text" class="form-control" id="name-login" ng-model="registration.Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-login">Password</label>
+                                    <input type="password" class="form-control" id="password-login" ng-model="registration.Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-login">Password</label>
+                                    <input type="password" class="form-control" id="password-login" ng-model="registration.ConfirmPassword">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-template-main" ng-click="register()"><i class="fa fa-user-md"></i> Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#content -->

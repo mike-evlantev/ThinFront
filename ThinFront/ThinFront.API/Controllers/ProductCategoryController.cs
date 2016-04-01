@@ -36,6 +36,30 @@ namespace ThinFront.API.Controllers
             );
         }
 
+        [Route("api/reseller/productCategories")]
+        public IEnumerable<ProductCategoriesModel> GetProductCategoriesForCurrentReseller()
+        {
+            var productCategories = Mapper.Map<IEnumerable<ProductCategoriesModel>>(
+                _productCategoryRepository.GetWhere(pc => pc.ResellerProductCategories.Any(rpc => rpc.ResellerId == CurrentUser.Id))
+            );
+
+            foreach(var pc in productCategories)
+            {
+                foreach (var sc in pc.ProductSubcategories)
+                {
+                    foreach (var p in sc.Products)
+                    {
+                        if(CurrentUser.ResellerProducts.Any(rp => rp.ProductId == p.ProductId))
+                        {
+                            p.Checked = true;
+                        }
+                    }
+                }
+            }
+
+            return productCategories;
+        }
+
         // GET: api/ProductCategories/5
         [ResponseType(typeof(ProductCategoriesModel))]
         public IHttpActionResult GetProductCategory(int id)

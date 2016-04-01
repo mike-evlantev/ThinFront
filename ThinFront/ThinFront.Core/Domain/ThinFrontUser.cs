@@ -71,5 +71,6 @@ namespace ThinFront.Core.Domain
         public virtual ICollection<Inventory> Inventories { get; set; }
         public virtual ICollection<ThinFrontUser> Customers { get; set; }
         public virtual ICollection<ResellerProductCategory> ResellerProductCategories { get; set; }
+        public virtual ICollection<ResellerProduct> ResellerProducts { get; set; }
     }
 }
